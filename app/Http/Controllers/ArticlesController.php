@@ -22,7 +22,6 @@ class ArticlesController extends Controller
     public function create()
     {
         return view('articles.create');
-        
     }
 
     /**
@@ -30,8 +29,13 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        Articles::create($request->all());
-        return redirect()->route('articles.index'); 
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        Articles::create($validatedData);
+        return redirect()->route('articles.index')->with('success', 'Article created successfully.');
     }
 
     /**
@@ -40,6 +44,9 @@ class ArticlesController extends Controller
     public function show(string $id)
     {
         $article = Articles::find($id);
+        if (!$article) {
+            return redirect()->route('articles.index')->with('error', 'Article not found.');
+        }
         return view('articles.show', compact('article'));
     }
 

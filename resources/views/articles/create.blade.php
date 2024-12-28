@@ -1,27 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Создать статью</title>
-</head>
-<body>
-    <h1>Создание статьи</h1>
+@extends('layouts.app')
 
+@section('title', 'Создать новую статью')
+
+@section('content')
+<div class="container">
+    <h1>Создать новую статью</h1>
     <form action="{{ route('articles.store') }}" method="POST">
         @csrf
-        <div>
-            <label for="title">Название:</label>
-            <input type="text" id="title" name="title" required>
+        <div class="form-group">
+            <label for="title">Заголовок</label>
+            <input type="text" class="form-control" id="title" name="title" required>
         </div>
-
-        <div>
-            <label for="content">Содержание:</label>
-            <textarea id="content" name="content" required></textarea>
+        <div class="form-group">
+            <label for="content">Текст</label>
+            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
         </div>
-
-        <button type="submit">Сохранить</button>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>
-
-</body>
-</html>
+</div>
+@endsection

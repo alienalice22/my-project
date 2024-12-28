@@ -1,29 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактировать статью</title>
-</head>
-<body>
-    <h1>Редактирование статьи</h1>
+@extends('layouts.app')
 
-    <form action="{{ route('articles.update', $article->id) }}" method="POST">
+@section('title', 'Редактировать статью')
+
+@section('content')
+<div class="container">
+    <h1>Редактирование статьи</h1>
+    <form action="{{ route('articles.update', $article->id) }}" method="POST" class="container mt-5">
         @csrf
         @method('PUT')
-
-        <div>
+        <div class="form-group">
             <label for="title">Название:</label>
-            <input type="text" id="title" name="title" value="{{ $article->title }}" required>
+            <input type="text" id="title" name="title" class="form-control" value="{{ $article->title }}" required>
         </div>
-
-        <div>
+        <div class="form-group">
             <label for="content">Контент:</label>
-            <textarea id="content" name="content" required>{{ $article->content }}</textarea>
+            <textarea id="content" name="content" class="form-control" rows="5" required>{{ $article->content }}</textarea>
         </div>
-
-        <button type="submit">Сохранить</button>
+        <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
     </form>
-
-</body>
-</html>
+</div>
+@endsection

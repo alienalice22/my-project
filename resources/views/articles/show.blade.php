@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $article->title }}</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Просмотр статьи')
+
+@section('content')
+<div class="container">
     <h1>{{ $article->title }}</h1>
     <p>{{ $article->content }}</p>
-</body>
-</html>
+    @if(Auth::check() && Auth::user()->role === 'admin')
+        <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-primary">Редактировать</a>
+    @endif
+    <a href="{{ route('articles.index') }}" class="btn btn-secondary">Назад к списку</a>
+</div>
+@endsection
